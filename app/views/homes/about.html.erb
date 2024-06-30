@@ -1,2 +1,41 @@
-<h1>Homes#about</h1>
-<p>Find me in app/views/homes/about.html.erb</p>
+<div class="container">
+  <div class="row">
+     <div class="mt-5 col-12">
+       <!--できれば地図を入れたい-->
+      <h2 class="text-center py-5">
+        1.出先の思い出をいっぱい<br>
+        写真に収めよう
+      </h2>
+      <h2 class="text-center py-5">
+        2.出先の思い出を残して、<br>
+        友達とかと共有しよう！
+      </h2>
+      <h2 class="text-center py-5">
+        3.出先でどこに行こうか迷ったとき！<br>
+        他の人の投稿を見てみよう！
+      </h2>
+    </div>
+    <div class="offset-5 col-7">
+      <% if user_signed_in? %>
+        <div class="px-4">
+          <%= link_to destroy_user_session_path, method: :delete do %>
+            <button type="button" class="btn btn-danger">ログアウト</button>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="d-flex flex-row">
+          <div class="px-5">
+            <%= link_to new_user_registration_path do %>
+              <button type="button" class="btn btn-success">新規登録</button>
+            <% end %>
+          </div>
+          <div>
+            <%= link_to new_user_session_path do %>
+              <button type="button" class="btn btn-primary">ログイン</button>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -14,6 +14,12 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
+    if @post.save
+      flash[:notice] = "投稿に成功しました。"
+      redirect_to posts_path
+    else
+      render :new
+    end
   end
 
   def edit
@@ -33,6 +39,6 @@ class PostsController < ApplicationController
 
   private
   def post_params
-    params.require(:post).permit(:body, :image, :address)
+    params.require(:post).permit(:body, :image, :address, :latitude, :longitude)
   end
 end
