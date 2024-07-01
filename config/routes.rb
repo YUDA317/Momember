@@ -1,12 +1,16 @@
 Rails.application.routes.draw do
-  devise_for :users
   root to: "homes#top"
   get 'homes/about',to: 'homes#about', as: :about
   resources :post_comments, skip: [:index]
-  resources :users, only: [:index, :edit, :show, :update, :destroy] do
-    resource :relationships, only: [:create, :destroy]
+
+  resources :users, controllers: {
+    registrations: 'users/registrations',
+    sessions: 'users/sessions'
+  } do
+    resource :relationships, only: [:create, :destroy] do
       get "followings" => "relationships#followings", as: "followings"
-      get "followers" => "rerationships#followers", as: "followers"
+      get "followers" => "relationships#followers", as: "followers"
+    end
   end
 
   resources :posts do

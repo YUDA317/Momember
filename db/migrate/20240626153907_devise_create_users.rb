@@ -8,6 +8,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.1]
       t.string :telephone_number
       t.string :encrypted_password, null: false, default: ""
 
+      t.integer :comment_id
       t.string :name, null: false
       t.string :account, null: false
 
