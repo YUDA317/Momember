@@ -6,6 +6,22 @@
 
 <div id='map' style="height: 800px;"></div>
 
+<!--仮投稿一覧-->
+<h3>投稿一覧</h3>
+<% @posts.each do |post| %>
+<div>
+  <%= link_to post_path(post.id) do %>
+    <%= image_tag post.get_image, size: "100x100" %>
+  <% end %>
+</div>
+<div>
+  <%= post.body %>
+</div>
+<div>
+  <%= post.lat %><%= post.lng %>
+</div>
+<% end %>
+
 <script>
 let map
 let geocoder
