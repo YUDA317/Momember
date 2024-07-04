@@ -6,12 +6,19 @@
 
 <div id='map' style="height: 800px;"></div>
 
+<!--後で変更するかも大きさは変更する-->
+<button type="button" class="btn btn-primary rounded-circle p-0" style="width:2rem;height:2rem;">
+  <%= link_to new_post_path do %>
+  <p class="text-white">＋</p>
+  <% end %>
+</button>
+
 <!--仮投稿一覧-->
 <h3>投稿一覧</h3>
 <% @posts.each do |post| %>
 <div>
   <%= link_to post_path(post.id) do %>
-    <%= image_tag post.get_image, size: "100x100" %>
+    <%= image_tag(post, width:100) %>
   <% end %>
 </div>
 <div>

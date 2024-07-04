@@ -9,7 +9,7 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
-    @user = User.find(@post.user_id)
+    @user = @post.user_id
   end
 
   def create
@@ -25,16 +25,30 @@ class PostsController < ApplicationController
 
   def edit
     @post = Post.find(params[:id])
+    @user = @post.user_id
   end
 
   def update
     @post = Post.find(params[:id])
     @post.update(post_params)
+    if params[:post][:image_ids]
+      params[:post][:image_ids].each do |image_id|
+        image = post.images.find(image_id)
+        image.purge
+      end
+    end
+    if post.update_attributes(post_params)
+      flash[:notice] = "編集しました。"
+      redirect_to posts_path
+    else
+      render :edit
+    end
   end
 
   def destroy
     post = Post.find(params[:id])
     post.destroy
+    flash[:notice] = "削除しました。"
     redirect_to '/posts'
   end
 
