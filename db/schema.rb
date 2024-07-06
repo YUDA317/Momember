@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(version: 2024_06_27_113128) do
 
   create_table "post_tags", force: :cascade do |t|
     t.integer "post_id", null: false
-    t.integer "post_tag_id", null: false
+    t.integer "tag_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(version: 2024_06_27_113128) do
     t.integer "user_id", null: false
     t.integer "comment_id"
     t.text "body", null: false
+    t.text "tag_body"
     t.float "lat", null: false
     t.float "lng", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -83,6 +84,7 @@ ActiveRecord::Schema.define(version: 2024_06_27_113128) do
     t.string "tag_name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["tag_name"], name: "index_tags_on_tag_name", unique: true
   end
 
   create_table "users", force: :cascade do |t|

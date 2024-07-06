@@ -3,7 +3,7 @@ class CreatePostTags < ActiveRecord::Migration[6.1]
     create_table :post_tags do |t|
 
       t.integer :post_id, null: false
-      t.integer :post_tag_id, null: false
+      t.integer :tag_id, null: false
       t.timestamps
     end
   end

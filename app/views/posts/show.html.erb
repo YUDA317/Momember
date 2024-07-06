@@ -7,5 +7,16 @@
   </button>
 <% end %>
 <div>
-  <%= image_tag @post.get_images %>
+  <% @post.images.each do |image| %>
+    <%= image_tag(image, width:100) %>
+  <% end %>
+</div>
+<div>
+  <%= @post.tag_body %>
+</div>
+<div>
+  <%= @post.body %>
+</div>
+<div>
+  <%= @post.lat %><%= @post.lng %>
 </div>

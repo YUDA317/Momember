@@ -1,0 +1,18 @@
+<h2>ハッシュタグ #<%= @tag.tag_name %></h2>
+  <div class= "tag-name">
+    <% @tags.sort.reverse.each do |count| %>
+        <% count[1].each do |tag| %>
+            <p><%= link_to  "##{tag.tag_name} (#{tag.posts.count}) 件","/post/tag/#{tag.tag_name}",data: {"turbolinks" => false} %>
+            </p>
+        <% end %>
+    <% end %>
+  </div>
+    <ul>
+        <% @post.each do |t| %>
+        <li>
+            <%= t.body %>
+        </li>
+        <% end %>
+    </ul>
+
+<%= link_to 'Back', posts_path %>

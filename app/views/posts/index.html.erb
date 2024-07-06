@@ -17,8 +17,10 @@
 <h3>投稿一覧</h3>
 <% @posts.each do |post| %>
 <div>
-  <%= link_to post_path(post.id) do %>
-    <%= image_tag(post, width:100) %>
+  <% post.images.each do |image| %>
+    <%= link_to post_path(post.id) do %>
+      <%= image_tag(image, width:100) %>
+    <% end %>
   <% end %>
 </div>
 <div>
