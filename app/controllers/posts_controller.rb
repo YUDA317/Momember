@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+  before_action :authenticate_user!, except: [:new, :edit, :show]
 
   def tag
     if params[:name].nil?
@@ -22,7 +23,7 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
-    @user = @post.user_id
+    @user = User.find_by(id: @post.user_id)
   end
 
   def create
@@ -43,14 +44,14 @@ class PostsController < ApplicationController
 
   def update
     @post = Post.find(params[:id])
-    respond_to do |format|
-      if @post.update(post_params)
-        format.html { redirect_to @post, notice: "正常に更新できました。" }
-        format.json { render :show, status: :ok, location: @post }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @post.errors, status: :unprocessable_entity }
-      end
+    # respond_to do |format|
+    #   if @post.update(post_params)
+    #     format.html { redirect_to @post, notice: "正常に更新できました。" }
+    #     format.json { render :show, status: :ok, location: @post }
+    #   else
+    #     format.html { render :edit, status: :unprocessable_entity }
+    #     format.json { render json: @post.errors, status: :unprocessable_entity }
+    #   end
     # if params[:post][:image_ids]
     #   params[:post][:image_ids].each do |image_id|
     #     image = post.images.find(image_id)
@@ -58,11 +59,11 @@ class PostsController < ApplicationController
     #   end
     # end
 
-    # if post.update_attributes(post_params)
-    #   flash[:notice] = "編集しました。"
-    #   redirect_to posts_path
-    # else
-    #   render :edit
+    if @post.update(post_params)
+      flash[:notice] = "編集しました。"
+      redirect_to post_path(@post)
+    else
+      render "edit"
     end
 
   end

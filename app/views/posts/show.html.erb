@@ -7,6 +7,11 @@
   </button>
 <% end %>
 <div>
+  <%= link_to user_path(@user.id) do %>
+    <%= image_tag @user.get_profile_image, size: "100x100" %>
+  <% end %>
+</div>
+<div>
   <% @post.images.each do |image| %>
     <%= image_tag(image, width:100) %>
   <% end %>

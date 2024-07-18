@@ -5,6 +5,10 @@ class Post < ApplicationRecord
   #geocoded_by :address
   #after_validation :geocode
 
+  validates :images, presence: true
+  validates :lat, presence: true
+  validates :lng, presence: true
+
   after_create do
     post = Post.find_by(id: id)
     # tag_bodyに打ち込まれたハッシュタグを検出

@@ -19,14 +19,17 @@ class UsersController < ApplicationController
 
   def destroy
     user = User.find(params[:id])
+    user.posts.destroy_all
     user.destroy
-    redirect_to top
+    redirect_to "/"
   end
 
   private
 
   def user_params
-    params.require(:user).permit(:email, :telephone_number, :password, :name, :account, :comment, profile_image: []).merge(user_id: current_user.id)
+    permitted = params.require(:user).permit(:email, :telephone_number, :password, :name, :account, :comment)
+    permitted[:profile_image] = params[:user][:profile_image] if params[:user][:profile_image].present?
+    permitted
   end
 
   def is_matching_login_user

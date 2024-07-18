@@ -1,4 +1,10 @@
 <div>
   <h3><%= @user.name %></h3>
+  <a type="button" class="btn btn-outline-success" href="<%= edit_user_path(@user) %>">プロフィール編集</a>
+
+  <button type="button" class="btn btn-outline-danger">
+    <%= link_to "アカウントを削除", user_path(@user),  method: :delete, class: 'text-danger' %>
+  </button>
+
   <%= image_tag @user.get_profile_image, size: "100x100" %>
 </div>
