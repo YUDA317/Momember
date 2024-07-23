@@ -1,29 +1,34 @@
 <div class="container">
   <div class="row">
       <ul class="list-group list-group-flush mt-4 offset-2 col-8">
-        <li class="list-group-item py-4">
-          <!--ユーザーeditページのリンク仮リンク-->
-          <%= link_to users_path, class: "text-body font-weight-bold text-center" do %>
-            <h2>プロフィール編集</h2>
-          <% end %>
-        </li>
+        <% if user_signed_in? %>
+          <li class="list-group-item py-4">
+            <%= link_to edit_user_path(current_user), class: "text-body font-weight-bold text-center" do %>
+              <h2>プロフィール編集</h2>
+            <% end %>
+          </li>
+        <% end %>
+        <% if user_signed_in? %>
         <li class="list-group-item py-4">
           <!--自分だけの投稿のリンク仮リンク-->
-          <%= link_to users_path, class: "text-body font-weight-bold text-center" do %>
+          <%= link_to about_path, class: "text-body font-weight-bold text-center" do %>
             <h2>My Map</h2>
           <% end %>
         </li>
+        <% end %>
         <li class="list-group-item py-4">
           <%= link_to about_path, class: "text-body font-weight-bold text-center" do %>
             <h2>About</h2>
           <% end %>
         </li>
+        <% if user_signed_in? %>
         <li class="list-group-item py-4">
           <!--自分がいいねした投稿の一覧のリンク仮リンク-->
-          <%= link_to users_path, class: "text-body font-weight-bold text-center" do %>
+          <%= link_to about_path, class: "text-body font-weight-bold text-center" do %>
             <h2>いいね一覧</h2>
           <% end %>
         </li>
+        <% end %>
         <% if user_signed_in? %>
           <li class="list-group-item py-4">
             <%= link_to destroy_user_session_path, class: "text-danger font-weight-bold text-center", method: :delete do %>
