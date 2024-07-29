@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get "followers" => "rerationships#followers", as: "followers"
   root to: "homes#top"
   get 'homes/about',to: 'homes#about', as: :about
+  get '/user/:user_id',to: 'posts#index'
   resources :post_comments, skip: [:index]
   resources :users
   resources :posts

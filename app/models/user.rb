@@ -37,9 +37,7 @@ class User < ApplicationRecord
     if profile_image.attached?
       profile_image
     else
-      file_path = Rails.root.join('app/assets/images/no_image2.png')
-      file = File.open(file_path)
-      return file
+      return '/assets/no_image2.png'
     end
   end
 end

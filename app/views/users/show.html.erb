@@ -1,3 +1,4 @@
+<% if session[:user_id] == @user.id %>
 <div>
   <h3><%= @user.name %></h3>
   <a type="button" class="btn btn-outline-success" href="<%= edit_user_path(@user) %>">プロフィール編集</a>
@@ -8,4 +9,25 @@
 
   <%= image_tag @user.get_profile_image, size: "100x100" %>
 </div>
-<div></div>
+<% else %>
+<%= image_tag @user.get_profile_image, size: "100x100" %>
+<h3><%= @user.name %></h3>
+<%= render 'map', posts: @posts %>
+  <!--仮投稿一覧のため変更-->
+  <h3>投稿一覧</h3>
+  <% @posts.each do |post| %>
+  <div>
+    <% post.images.each do |image| %>
+      <%= link_to post_path(post.id) do %>
+        <%= image_tag(image, width:100) %>
+      <% end %>
+    <% end %>
+  </div>
+  <div>
+    <%= post.body %>
+  </div>
+  <div>
+    <%= post.lat %><%= post.lng %>
+  </div>
+  <% end %>
+<% end %>

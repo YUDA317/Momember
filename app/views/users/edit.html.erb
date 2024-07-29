@@ -12,3 +12,8 @@
     <%= f.submit "更新" %>
   </div>
 <% end %>
+<button type="button" class="btn btn-outline-danger">
+  <%= link_to destroy_user_session_path, method: :delete, class: 'text-danger' do %>
+    <h2>ログアウト</h2>
+</button>
+<% end %>
