@@ -5,6 +5,6 @@ protected
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up,
-                                      keys: [:name, :account, :telephone_number])
+                                      keys: [:name, :account, :telephone_number, :email])
   end
 end
