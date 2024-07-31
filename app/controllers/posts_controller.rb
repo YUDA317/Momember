@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, except: [:new, :edit, :show]
+  before_action :is_matching_login_user, only: [:edit, :update]
+  before_action :authenticate_user!
 
   def tag
     if params[:name].nil?
@@ -44,28 +45,12 @@ class PostsController < ApplicationController
 
   def update
     @post = Post.find(params[:id])
-    # respond_to do |format|
-    #   if @post.update(post_params)
-    #     format.html { redirect_to @post, notice: "正常に更新できました。" }
-    #     format.json { render :show, status: :ok, location: @post }
-    #   else
-    #     format.html { render :edit, status: :unprocessable_entity }
-    #     format.json { render json: @post.errors, status: :unprocessable_entity }
-    #   end
-    # if params[:post][:image_ids]
-    #   params[:post][:image_ids].each do |image_id|
-    #     image = post.images.find(image_id)
-    #     image.purge
-    #   end
-    # end
-
     if @post.update(post_params)
       flash[:notice] = "編集に成功しました。"
       redirect_to post_path(@post)
     else
       render "edit"
     end
-
   end
 
   def destroy
@@ -76,7 +61,16 @@ class PostsController < ApplicationController
   end
 
   private
+
   def post_params
     params.require(:post).permit(:body, :tag_body, :address, :lat, :lng, images: [])
+  end
+
+  def is_matching_login_user
+    @post = Post.find(params[:id])
+    unless @post.user_id == current_user.id
+      flash[:error] = 'ユーザーが存在しないか、アクセス権限がありません。'
+      redirect_to posts_path
+    end
   end
 end

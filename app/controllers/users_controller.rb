@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :is_matching_login_user, only: [:edit, :update]
+  before_action :authenticate_user!
 
   def show
     @user = User.find(params[:id])
@@ -13,8 +14,11 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    @user.update(user_params)
-    redirect_to user_path(@user.id)
+    if @user.update(user_params)
+      redirect_to user_path(@user.id)
+    else
+      render "edit"
+    end
   end
 
   def destroy
@@ -33,8 +37,14 @@ class UsersController < ApplicationController
   end
 
   def is_matching_login_user
-    user = User.find(params[:id])
-    unless user.id == current_user.id
+    if user_signed_in?
+      user = User.find_by(id: params[:id])
+      unless user && user.id == current_user.id
+        flash[:error] = 'ユーザーが存在しないか、アクセス権限がありません。'
+        redirect_to posts_path
+      end
+    else
+      flash[:error] = 'ログインが必要です。'
       redirect_to posts_path
     end
   end

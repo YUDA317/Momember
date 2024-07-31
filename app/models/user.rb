@@ -8,6 +8,8 @@ class User < ApplicationRecord
   has_one_attached :profile_image
   has_many:posts
 
+  validates :name, presence: true
+
 # フォローの記述
   # フォローしている関連付け
   has_many :active_relationships, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
