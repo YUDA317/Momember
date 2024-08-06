@@ -63,7 +63,6 @@ gem 'geocoder'
 gem 'gon'
 
 # 以下デプロイのため追加
-gem 'dotenv-rails'
 group :production do
   gem 'mysql2'
 end

@@ -5,13 +5,19 @@ Rails.application.routes.draw do
   root to: "homes#top"
   get 'homes/about',to: 'homes#about', as: :about
   get '/user/:user_id',to: 'posts#index'
-  resources :post_comments, skip: [:index]
   resources :users
-  resources :posts
+  resources :posts do
+    resources :comments, only: :create
+    collection do
+      get 'search'
+    end
+  end
   resources :tags, only: [:index, :create]
   get '/post/tag/:name' => 'posts#tag'
   get '/post/tag' => 'posts#tag'
   resources :favorites, only: [:index, :create, :destroy]
+  resources :points, only: :show
+
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

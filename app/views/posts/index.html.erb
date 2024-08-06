@@ -1,4 +1,13 @@
-<!--検索ボックスはできれば地図上に配置する-->
+<% if user_signed_in? %>
+ <div class="search_form">
+   <%= form_with url: search_posts_path, method: :get, local: true do |f| %>
+   <%= f.text_field :word %>
+   <%= f.select :range, options_for_select([['User'],['Book']]) %>
+   <%= f.submit "検索", class: "btn btn-primary" %>
+   <% end %>
+ </div>
+<% end %>
+
 <input id="address" type="textbox" value="GeekSalon">
 <input type="button" value="検索" onclick="codeAddress()">
 <!-- 下の1行を追加 -->

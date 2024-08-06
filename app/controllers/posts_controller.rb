@@ -2,6 +2,16 @@ class PostsController < ApplicationController
   before_action :is_matching_login_user, only: [:edit, :update]
   before_action :authenticate_user!
 
+  def search_result
+    @range = params[:range]
+    
+    if @range == "User"
+      @users = User.looks(params[:search], params[:word])
+    else
+      @posts = Post.looks(params[:search], params[:word])
+    end
+  end
+
   def tag
     if params[:name].nil?
       @tags = Tag.all.to_a.group_by{ |tag| tag.posts.count}
