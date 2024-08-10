@@ -1,16 +1,18 @@
 class PostsController < ApplicationController
   before_action :is_matching_login_user, only: [:edit, :update]
   before_action :authenticate_user!
+  before_action :set_post, only: [:edit, :show]
+  before_action :move_to_index, except: [:index, :show, :search]
 
-  def search_result
-    @range = params[:range]
-    
-    if @range == "User"
-      @users = User.looks(params[:search], params[:word])
-    else
-      @posts = Post.looks(params[:search], params[:word])
-    end
-  end
+  # def search_result
+  #   @range = params[:range]
+
+  #   if @range == "User"
+  #     @users = User.looks(params[:search], params[:word])
+  #   else
+  #     @posts = Post.looks(params[:search], params[:word])
+  #   end
+  # end
 
   def tag
     if params[:name].nil?
@@ -29,7 +31,11 @@ class PostsController < ApplicationController
   end
 
   def index
-    @posts = Post.all
+    @posts = Post.includes(:user).order("created_at DESC")
+  end
+
+  def search
+    @posts = Post.search(params[:keyword])
   end
 
   def show
@@ -73,7 +79,7 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:body, :tag_body, :address, :lat, :lng, images: [])
+    params.require(:post).permit(:body, :tag_body, :address, :lat, :lng, images: []).merge(user_id: current_user.id)
   end
 
   def is_matching_login_user
@@ -81,6 +87,16 @@ class PostsController < ApplicationController
     unless @post.user_id == current_user.id
       flash[:error] = 'ユーザーが存在しないか、アクセス権限がありません。'
       redirect_to posts_path
+    end
+  end
+
+  def set_post
+    @post = Post.find(params[:id])
+  end
+
+  def move_to_index
+    unless user_signed_in?
+      redirect_to action: :index
     end
   end
 end

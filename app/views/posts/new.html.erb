@@ -6,8 +6,6 @@
     <% end %>
   </ul>
 <% end %>
-<!--後で修正-->
-<h3>※ページをリロードしないとmapにピン立てができない</h3>
 
 <div class="container">
   <div class="row">
@@ -23,6 +21,7 @@
       <%= f.text_area :tag_body %>
       <%= f.hidden_field :lat %>
       <%= f.hidden_field :lng %>
+      <%= f.hidden_field :address %>
       <div>
         <h2>投稿したい場所を選択</h2>
 
@@ -66,7 +65,7 @@ document.addEventListener('turbolinks:load', function() {
       map: map
     });
 
-   google.maps.event.addListener(map, 'click', mylistener);
+  google.maps.event.addListener(map, 'click', mylistener);
 
       //クリックしたときの処理
     function mylistener(event){
@@ -96,8 +95,70 @@ document.addEventListener('turbolinks:load', function() {
       display.textContent = "検索結果：" + results[ 0 ].geometry.location
       } else {
         alert('該当する結果がありませんでした：' + status);
-       }
+      }
       });
       }
+      // ここから追加
+//   window.initMap = () => {}
+
+// window.onload = function() {
+//   const addresses = [...document.querySelectorAll("#mapAddress")].map((node) => node.textContent);
+//   const shopNames = [...document.querySelectorAll("#shop_name_js")].map((node) => node.textContent);
+//   let data = shopNames.map(function(name, index) {
+//     return {
+//       name: name,
+//       address: addresses[index]
+//     }
+//   })
+
+//   const googleMapElement = document.getElementById('map');
+//   const infowindow = new google.maps.InfoWindow();
+
+//   if (addresses.length > 0) {
+//     window.initMap = mappingPinToGoogleMap(addresses, googleMapElement)
+//   }
+
+
+// function mappingPinToGoogleMap(addresses, googleMapElement) {
+//   const googleMap = new google.maps.Map(googleMapElement, {
+//     zoom: 16,
+//     mapTypeId: google.maps.MapTypeId.ROADMAP
+//   });
+
+//   const bounds = new google.maps.LatLngBounds();
+
+//   data.forEach((data) => {
+
+//     const geocoder = new google.maps.Geocoder();
+//     geocoder.geocode({ 'address': data.address, 'region': 'jp' }, (result, status) => {
+//       if(status == google.maps.GeocoderStatus.OK) {
+
+//         const lat = result[0].geometry.location.lat();
+//         const lng = result[0].geometry.location.lng();
+//         const latlng = {lat,lng};
+
+//         const marker = new google.maps.Marker({
+//           position: new google.maps.LatLng(latlng),
+//           map: googleMap,
+//         });
+
+//         if (addresses.length > 1) {
+//           bounds.extend(marker.position);
+//           googleMap.fitBounds(bounds,20);
+//           const infowindow = new google.maps.InfoWindow({
+//             content: data.name,
+//           });
+//           marker.addListener("click", () => {
+//             infowindow.open(googleMap, marker);
+//           });
+//         } else {
+//           googleMap.setCenter(latlng);
+//         }
+//       }
+//     })
+//   })
+// }
+// }
+
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV["GOOGLE_MAPS_API_KEY"] %>&callback=initMap" async defer></script>

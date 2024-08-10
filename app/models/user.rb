@@ -20,6 +20,28 @@ class User < ApplicationRecord
   # フォロワーを取得
   has_many :followers, through: :passive_relationships, source: :follower
 
+  def self.search(search)
+    if search != ""
+      User.where('text LIKE(?)', "%#{search}%")
+    else
+      User.all
+    end
+  end
+
+  # def self.looks(search, word)
+  #   if search == "perfect_match"
+  #     @user = User.where("name LIKE?", "#{word}")
+  #   elsif search == "forward_match"
+  #     @user = User.where("name LIKE?","#{word}%")
+  #   elsif search == "backward_match"
+  #     @user = User.where("name LIKE?","%#{word}")
+  #   elsif search == "partial_match"
+  #     @user = User.where("name LIKE?","%#{word}%")
+  #   else
+  #     @user = User.all
+  #   end
+  # end
+
   # 指定したユーザーをフォローする
   def follow(user)
     active_relationships.create(followed_id: user.id)

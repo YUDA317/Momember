@@ -7,6 +7,7 @@ class Post < ApplicationRecord
   #after_validation :geocode
   belongs_to :user
 
+  validates :text, presence: true
   validates :images, presence: true
   validates :lat, presence: true
   validates :lng, presence: true
@@ -39,6 +40,25 @@ class Post < ApplicationRecord
       Post.all
     end
   end
+
+  def self.search(keyword)
+    where(["body like? OR body like?", "%#{keyword}%", "%#{keyword}%"])
+  end
+
+# addresで検索できるようにもしたい
+  # def self.looks(search, word)
+  #   if search == "perfect_match"
+  #     @post = Post.where("body LIKE?","#{word}")
+  #   elsif search == "forward_match"
+  #     @post = Post.where("body LIKE?","#{word}")
+  #   elsif search == "backward_match"
+  #     @post = Post.where("body LIKE?","%#{word}")
+  #   elsif search == "partial_match"
+  #     @post = Post.where("body LIKE?","%#{word}")
+  #   else
+  #     @post = Post.all
+  #   end
+  # end
 
   def get_images
     if images.attached?
