@@ -23,11 +23,14 @@
       <% end %>
     <% end %>
   </div>
-  <div>
-    <%= post.body %>
-  </div>
-  <div>
-    <%= post.lat %><%= post.lng %>
-  </div>
+  <p>
+    本文:<%= post.body %>
+  </p>
+  <p>
+    住所:<%= post.address %>
+  </p>
+  <p>
+    緯度:<%= post.lat %>経度:<%= post.lng %>
+  </p>
   <% end %>
 <% end %>

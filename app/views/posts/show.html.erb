@@ -19,15 +19,32 @@
     <%= image_tag(image, width:100) %>
   <% end %>
 </div>
+<p>
+  タグ:<%= @post.tag_body %>
+</p>
+<p>
+  本文:<%= @post.body %>
+</p>
+<!--住所が表示されないのちに修正-->
+<p>
+  住所:<%= @post.address %>
+</p>
+<p>
+  緯度:<%= @post.lat %>経度:<%= @post.lng %>
+</p>
+
 <div>
-  <%= @post.tag_body %>
+  <p>コメント件数：<%= @post.post_comments.count %></p>
+  <% @post.post_comments.each do |post_comment| %>
+    <p><%= image_tag post_comment.user.get_profile_image, size:'100x100' %></p>
+    <%= post_comment.user.name %>
+    <%= post_comment.created_at.strftime('%Y/%m/%d')%><%= post_comment.comment %>
+  <% end %>
 </div>
+
 <div>
-  <%= @post.body %>
-</div>
-<div>
-  <%= @post.address %>
-</div>
-<div>
-  <%= @post.lat %><%= @post.lng %>
+  <%= form_with model: [@post, @post_comment] do |f| %>
+    <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
+    <%= f.submit "送信する" %>
+  <% end %>
 </div>

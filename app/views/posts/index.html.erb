@@ -5,9 +5,10 @@
 
 <div class="post-list">
   <% @posts.each do |post| %>
-    <%= post.body %>
-    <%= post.address %>
-    <div><%= post.lat %><%= post.lng %></div>
+    <p>本文:<%= post.body %></p>
+    <p>住所:<%= post.address %></p>
+    <p>緯度:<%= post.lat %>経度:<%= post.lng %></p>
+    <p><%= link_to "#{post.post_comments.count}コメント",post_path(post.id) %></p>
       <div>
         <% post.images.each do |image| %>
           <%= link_to post_path(post.id) do %>

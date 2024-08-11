@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   get '/user/:user_id',to: 'posts#index'
   resources :users
   resources :posts do
-    resources :comments, only: :create
+    resources :post_comments, only: [:create]
     collection do
       get 'search'
     end
