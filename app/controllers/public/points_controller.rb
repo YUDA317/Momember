@@ -1,4 +1,4 @@
-class PointsController < ApplicationController
+class Public::PointsController < ApplicationController
 
   def index
     @points = Point.all
