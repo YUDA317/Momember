@@ -2,6 +2,12 @@
 
 class Admin::SessionsController < Devise::SessionsController
   layout 'admin'
+  # ログインできなかったため追加記述
+  before_action :configure_permitted_parameters
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_in, keys: [:email, :password])
+  end
   # before_action :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in

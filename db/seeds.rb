@@ -26,6 +26,6 @@
 # end
 
 Admin.create!(
-  account: "hotori",
-  password: "misaki33"
+  email: "hotori@oyakata.com",
+  password: "Misaki33"
 )

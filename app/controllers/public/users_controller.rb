@@ -31,7 +31,7 @@ class Public::UsersController < ApplicationController
   private
 
   def user_params
-    permitted = params.require(:user).permit(:email, :telephone_number, :password, :name, :account, :comment)
+    permitted = params.require(:user).permit(:email, :password, :name, :account, :comment)
     permitted[:profile_image] = params[:user][:profile_image] if params[:user][:profile_image].present?
     permitted
   end
