@@ -4,7 +4,9 @@
     <title>Admin - Momember</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks': 'reload' %>
+
+    <script src="https://kit.fontawesome.com/f4d3a5e756.js" crossorigin="anonymous"></script>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   <body class="d-flex-colum vh-100">
@@ -19,11 +21,21 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                  <%= link_to destroy_admin_session_path, method: :delete, class: "nav-link" do %>
-                    <i class="fa-solid fa-right-from-bracket"></i> ログアウト
-                  <% end %>
-                </li>
+              <li class="nav-item">
+                <%= link_to admin_dashboards_path, class: "nav-link" do %>
+                  <i class="fa-solid fa-users"></i> 全ユーザー一覧
+                <% end %>
+              </li>
+              <li class="nav-item">
+                <%= link_to admin_post_dashboards_path, class: "nav-link" do %>
+                  <i class="fa-solid fa-map-pin"></i> 全投稿一覧
+                <% end %>
+              </li>
+              <li class="nav-item">
+                <%= link_to destroy_admin_session_path, class: "nav-link", method: :delete do %>
+                  <i class="fa-solid fa-right-from-bracket"></i> ログアウト
+                <% end %>
+              </li>
             </ul>
           </div>
         </div>

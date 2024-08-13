@@ -27,5 +27,5 @@
 
 Admin.create!(
   email: "hotori@oyakata.com",
-  password: "Misaki33"
+  password: "aaaaaa"
 )
