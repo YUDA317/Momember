@@ -1,35 +1,36 @@
-<%= form_with(url: search_posts_path, local: true, method: :get, class: "search-form") do |form| %>
-  <%= form.text_field :keyword, placeholder: "検索する", class: "search-input" %>
-  <%= form.submit "検索", class: "search-btn" %>
-<% end %>
-
-<div class="post-list">
-  <% @posts.each do |post| %>
-    <p>本文:<%= post.body %></p>
-    <p>住所:<%= post.address %></p>
-    <p>緯度:<%= post.lat %>経度:<%= post.lng %></p>
-    <p><%= link_to "#{post.post_comments.count}コメント",post_path(post.id) %></p>
-      <div>
-        <% post.images.each do |image| %>
-          <%= link_to post_path(post.id) do %>
-            <%= image_tag(image, width:100) %>
+<div class="container">
+  <!--地図内に表示されるように変更-->
+  <div class="post-list">
+    <% @posts.each do |post| %>
+      <p>本文:<%= post.body %></p>
+      <p>住所:<%= post.address %></p>
+      <p>緯度:<%= post.lat %>経度:<%= post.lng %></p>
+      <p><%= link_to "#{post.post_comments.count}コメント",post_path(post.id) %></p>
+        <div>
+          <% post.images.each do |image| %>
+            <%= link_to post_path(post.id) do %>
+              <%= image_tag(image, width:100) %>
+            <% end %>
           <% end %>
+        </div>
+    <% end %>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <input id="address" type="textbox" value="GeekSalon">
+      <input type="button" value="検索" onclick="codeAddress()">
+    </div>
+    <!-- 下の1行を追加 -->
+
+    <div class="col-4" id="display">緯度,経度</div>
+    <div class="col-7"></div>
+    <div class="col-1">
+        <%= link_to new_post_path do %>
+          <i class="fa-solid fa-plus"></i>投稿
         <% end %>
-      </div>
-  <% end %>
+    </div>
+  </div>
+
+  <%= render 'map', posts: @posts %>
 </div>
-
-<input id="address" type="textbox" value="GeekSalon">
-<input type="button" value="検索" onclick="codeAddress()">
-<!-- 下の1行を追加 -->
-<div id="display">緯度,経度</div>
-
-<%= render 'map', posts: @posts %>
-
-<!--後でマップ内で投稿を表示させる-->
-<!--後で変更するかも大きさは変更する-->
-<button type="button" class="btn btn-primary rounded-circle p-0" style="width:2rem;height:2rem;">
-  <%= link_to new_post_path do %>
-  <p class="text-white">＋</p>
-  <% end %>
-</button>

@@ -11,7 +11,7 @@
         <% if user_signed_in? %>
         <li class="list-group-item py-4">
           <!--自分だけの投稿のリンク仮リンク-->
-          <%= link_to about_path, class: "text-body font-weight-bold text-center" do %>
+          <%= link_to user_path(@user), class: "text-body font-weight-bold text-center" do %>
             <h2>My Map</h2>
           <% end %>
         </li>

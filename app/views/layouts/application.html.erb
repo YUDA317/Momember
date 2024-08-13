@@ -30,12 +30,6 @@
                 <% end %>
               </li>
               <li class="nav-item">
-                <!--search仮のURL-->
-                <%= link_to posts_path, class: "nav-link" do %>
-                  <i class="fa-solid fa-magnifying-glass"></i> Searchs
-                <% end %>
-              </li>
-              <li class="nav-item">
                 <!--フォロー仮のURL-->
                 <%= link_to posts_path, class: "nav-link" do %>
                   <i class="fa-solid fa-users"></i> Follow
@@ -51,6 +45,14 @@
                   <i class="fa-solid fa-book"></i> About
                 <% end %>
               <% end %>
+              </li>
+              <li class="nav-item">
+                <%= form_with(url: search_posts_path, local: true, method: :get, class: "search-form") do |form| %>
+                  <%= form.text_field :keyword, placeholder: "検索する", class: "search-input" %>
+                  <%= form.button type: "submit", class: "search-btn" do %>
+                    <i class="fa-solid fa-magnifying-glass"></i> 検索
+                  <% end %>
+                <% end %>
               </li>
             </ul>
           </div>
