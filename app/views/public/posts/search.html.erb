@@ -1,17 +1,21 @@
 <div class="container">
   <div class="contents row">
     <!--ここもマップ上に表示させるように変更する-->
-    <% @posts.each do |post| %>
-      <div>
-        <% post.images.each do |image| %>
-          <%= link_to post_path(post.id) do %>
-            <%= image_tag(image, width:100) %>
+    <% if @posts.empty? %>
+      <p class="col-4 mt-2">この検索結果は存在しません。</p>
+    <% else %>
+      <% @posts.each do |post| %>
+        <div>
+          <% post.images.each do |image| %>
+            <%= link_to post_path(post.id) do %>
+              <%= image_tag(image, width:100) %>
+            <% end %>
           <% end %>
-        <% end %>
-      </div>
-      <p>本文:<%= post.body %></p>
-      <p>住所:<%= post.address %></p>
-      <p>緯度:<%= post.lat %>経度:<%= post.lng %></p>
+        </div>
+        <p>本文:<%= post.body %></p>
+        <p>住所:<%= post.address %></p>
+        <p>緯度:<%= post.lat %>経度:<%= post.lng %></p>
+      <% end %>
     <% end %>
   </div>
   <%= render 'map', posts: @posts %>
