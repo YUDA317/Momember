@@ -70,3 +70,6 @@ end
 gem "net-smtp"
 gem "net-pop"
 gem "net-imap"
+
+# ページネーション
+gem 'kaminari','~>1.2.1'

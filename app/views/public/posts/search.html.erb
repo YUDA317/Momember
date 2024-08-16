@@ -1,12 +1,7 @@
-<%= form_with(url: search_posts_path, local: true, method: :get, class: "search-form") do |form| %>
-  <%= form.text_field :keyword, placeholder: "投稿を検索する", class: "search-input" %>
-  <%= form.submit "検索", class: "search-btn" %>
-<% end %>
-<div class="contents row">
-  <% @posts.each do |post| %>
-    <%= post.body %>
-    <%= post.address %>
-    <div><%= post.lat %><%= post.lng %></div>
+<div class="container">
+  <div class="contents row">
+    <!--ここもマップ上に表示させるように変更する-->
+    <% @posts.each do |post| %>
       <div>
         <% post.images.each do |image| %>
           <%= link_to post_path(post.id) do %>
@@ -14,5 +9,10 @@
           <% end %>
         <% end %>
       </div>
-  <% end %>
+      <p>本文:<%= post.body %></p>
+      <p>住所:<%= post.address %></p>
+      <p>緯度:<%= post.lat %>経度:<%= post.lng %></p>
+    <% end %>
+  </div>
+  <%= render 'map', posts: @posts %>
 </div>

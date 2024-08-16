@@ -1,11 +1,15 @@
-<h1>全ユーザー一覧</h1>
-<ul>
-  <% @posts.each do |post| %>
-    <li>
-      <% post.images.each do |image| %>
-        <%= image_tag(image, width:100) %> - <%= post.body %>
-      <% end %>
-      <%= link_to '削除', admin_post_path(post), method: :delete, data: { confirm: '本当に削除しますか？' } %>
-    </li>
-  <% end %>
-</ul>
+<div class="container">
+  <h2 class="mt-2">全投稿一覧</h2>
+  <ul>
+    <% @posts.each do |post| %>
+      <li class="mt-2">
+        <% post.images.each do |image| %>
+          <%= image_tag(image, width:100) %>
+        <% end %>
+        <%= post.body %>
+        <%= link_to '削除', admin_post_path(post), method: :delete, data: { confirm: '本当に削除しますか？' } %>
+      </li>
+    <% end %>
+    <%= paginate @posts %>
+  </ul>
+</div>
