@@ -30,46 +30,88 @@ Admin.create!(
   password: "kafka20"
 )
 
-user_data = [
-  { name: "ニャオハ",
-  　account: "nyaoha",
-  　email: "nyaoha@poke.com",
-  　password: "nyaoha",
-  　get_profile_image: "/db/fixtures/ニャオハ.jpg" },
-  { name: "ヒスイゾロア",
-    account: "hisuizoroa",
-    email: "hisuizoroa@poke.com",
-    password: "hisuizoroa",
-    get_profile_image: "/db/fixtures/ヒスイゾロア.png" },
-  { name: "フシギダネ",
-    account: "husigidane",
-    email: "husigidane@poke.com",
-    password: "husigidane",
-    get_profile_image: "/db/fixtures/フシギダネ.png" }
-  ]
+herakurosu = User.find_or_create_by!(email: "herakurosu@example.com") do |user|
+  user.name = "herakurosu"
+  user.account = "herakurosu"
+  user.password = "password"
+  user.profile_image.attach(io: File.open('db/fixtures/herakurosu.png'), filename: 'herakurosu.png')
+end
 
-  user_data.each do |user|
-    User.create!(user)
-  end
+hisuizoroa = User.find_or_create_by!(email: "hisuizoroa@example.com") do |user|
+  user.name = "hisuizoroa"
+  user.account = "hisuizoroa"
+  user.password = "password"
+  user.profile_image.attach(io: File.open('db/fixtures/hisuizoroa.png'), filename: 'hisuizoroa.png')
+end
 
-post_data = [
-  { body: "むし",
-    lat: 35.7054551,
-    lng: 139.6917337,
-    address: "日本",
-    get_images: "/db/fixtures/ヘラクロス.png" },
-  { body: "みず",
-    lat: 35.7054551,
-    lng: 139.6917337,
-    address: "日本",
-    get_images: "/db/fixtures/ヤドン.png" },
-  { body: "ノーマル",
-    lat: 35.7054551,
-    lng: 139.6917337,
-    address: "日本",
-    get_images: "/db/fixtures/ヨクバリス.png" }
-  ]
+husigidane = User.find_or_create_by!(email: "husigidane@example.com") do |user|
+  user.name = "husigidane"
+  user.account = "husigidane"
+  user.password = "password"
+  user.profile_image.attach(io: File.open('db/fixtures/husigidane.png'), filename: 'husigidane.png')
+end
 
-  post_data.each do |post|
-    Post.create!(post)
-  end
+Post.find_or_create_by!(body: "kusa") do |post_data|
+  post_data.lat = "35.7054551"
+  post_data.lng = "139.6917337"
+  post_data.address = "日本"
+  post_data.images.attach(io: File.open('db/fixtures/nyaoha.jpg'), filename: 'nyaoha.jpg')
+  post_data.user = herakurosu
+end
+
+Post.find_or_create_by!(body: "mizu") do |post_data|
+  post_data.lat = "24.2355536"
+  post_data.lng = "366.2255672"
+  post_data.address = "日本?"
+  post_data.images.attach(io: File.open('db/fixtures/yadon.png'), filename: 'yadon.png')
+  post_data.user = hisuizoroa
+end
+
+Post.find_or_create_by!(body: "ノーマル") do |post_data|
+  post_data.lat = "65.2208472"
+  post_data.lng = "458.3282053"
+  post_data.address = "多分日本じゃない"
+  post_data.images.attach([
+    { io: File.open('db/fixtures/yokubarisu.png'), filename: 'yokubarisu.png'},
+    { io: File.open('db/fixtures/イーブイ.png'), filename: 'イーブイ.png'}
+  ])
+  post_data.user = husigidane
+end
+
+# user_data = [
+#   { name: "ニャオハ",
+#     account: "nyaoha",
+#     password: "masuka-nya",
+#     email: "nyaoha@poke.com"},
+#   { name: "ヒスイゾロア",
+#     account: "hisuizoroa",
+#     password: "zoroa-ku",
+#     email: "hisuizoroa@poke.com"},
+#   { name: "フシギダネ",
+#     account: "husigidane",
+#     password: "husigibana",
+#     email: "husigidane@poke.com"}
+#   ]
+
+#   user_data.each do |user|
+#     User.create!(user)
+#   end
+
+# post_data = [
+#   { body: "むし",
+#     lat: 35.7054551,
+#     lng: 139.6917337,
+#     address: "日本" },
+#   { body: "みず",
+#     lat: 35.7054551,
+#     lng: 139.6917337,
+#     address: "日本"},
+#   { body: "ノーマル",
+#     lat: 35.7054551,
+#     lng: 139.6917337,
+#     address: "日本"}
+#   ]
+
+#   post_data.each do |data|
+#     Post.create!(data)
+#   end

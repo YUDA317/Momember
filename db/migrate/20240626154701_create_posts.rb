@@ -8,7 +8,7 @@ class CreatePosts < ActiveRecord::Migration[6.1]
       t.text :tag_body
       t.float :lat, null: false
       t.float :lng, null: false
-      t.text :address, null:
+      t.text :address, null:false
       t.timestamps
     end
   end

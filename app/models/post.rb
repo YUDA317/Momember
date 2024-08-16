@@ -12,26 +12,26 @@ class Post < ApplicationRecord
   validates :lat, presence: true
   validates :lng, presence: true
 
-  after_create do
-    post = Post.find_by(id: id)
-    # tag_bodyに打ち込まれたハッシュタグを検出
-    tags = tag_body.scan(/[#＃][\w\p{Han}ぁ-ヶｦ-ﾟー]+/)
-    tags.uniq.map do |tag|
-      # ハッシュタグは先頭の#を外した上で保存
-      tag = Tag.find_or_create_by(tag_name: tag.downcase.delete('#'))
-      post.tags << tag
-    end
-  end
+  # after_create do
+  #   post = Post.find_by(id: id)
+  #   # tag_bodyに打ち込まれたハッシュタグを検出
+  #   tags = tag_body.scan(/[#＃][\w\p{Han}ぁ-ヶｦ-ﾟー]+/)
+  #   tags.uniq.map do |tag|
+  #     # ハッシュタグは先頭の#を外した上で保存
+  #     tag = Tag.find_or_create_by(tag_name: tag.downcase.delete('#'))
+  #     post.tags << tag
+  #   end
+  # end
 
-  before_update do
-    post = Post.find_by(id: id)
-    post.tags.clear
-    tags = tag_body.scan(/[#＃][\w\p{Han}ぁ-ヶｦ-ﾟー]+/)
-    tags.uniq.map do |tag|
-      tag = Tag.find_or_create_by(tag_bane: tag.downcase.delete('#'))
-      post.tags << tag
-    end
-  end
+  # before_update do
+  #   post = Post.find_by(id: id)
+  #   post.tags.clear
+  #   tags = tag_body.scan(/[#＃][\w\p{Han}ぁ-ヶｦ-ﾟー]+/)
+  #   tags.uniq.map do |tag|
+  #     tag = Tag.find_or_create_by(tag_bane: tag.downcase.delete('#'))
+  #     post.tags << tag
+  #   end
+  # end
 
   def self.search(search)
     if search != ""
