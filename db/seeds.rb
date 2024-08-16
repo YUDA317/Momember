@@ -26,6 +26,50 @@
 # end
 
 Admin.create!(
-  email: "hotori@oyakata.com",
-  password: "aaaaaa"
+  email: "kaf@vwp.com",
+  password: "kafka20"
 )
+
+user_data = [
+  { name: "ニャオハ",
+  　account: "nyaoha",
+  　email: "nyaoha@poke.com",
+  　password: "nyaoha",
+  　get_profile_image: "/db/fixtures/ニャオハ.jpg" },
+  { name: "ヒスイゾロア",
+    account: "hisuizoroa",
+    email: "hisuizoroa@poke.com",
+    password: "hisuizoroa",
+    get_profile_image: "/db/fixtures/ヒスイゾロア.png" },
+  { name: "フシギダネ",
+    account: "husigidane",
+    email: "husigidane@poke.com",
+    password: "husigidane",
+    get_profile_image: "/db/fixtures/フシギダネ.png" }
+  ]
+
+  user_data.each do |user|
+    User.create!(user)
+  end
+
+post_data = [
+  { body: "むし",
+    lat: 35.7054551,
+    lng: 139.6917337,
+    address: "日本",
+    get_images: "/db/fixtures/ヘラクロス.png" },
+  { body: "みず",
+    lat: 35.7054551,
+    lng: 139.6917337,
+    address: "日本",
+    get_images: "/db/fixtures/ヤドン.png" },
+  { body: "ノーマル",
+    lat: 35.7054551,
+    lng: 139.6917337,
+    address: "日本",
+    get_images: "/db/fixtures/ヨクバリス.png" }
+  ]
+
+  post_data.each do |post|
+    Post.create!(post)
+  end
