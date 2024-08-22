@@ -1,6 +1,6 @@
 <div class="container">
   <!--地図内に表示されるように変更-->
-  <div class="post-list">
+  <div class="post-list mt-2">
     <% @posts.each do |post| %>
       <p>本文:<%= post.body %></p>
       <p>住所:<%= post.address %></p>
@@ -32,5 +32,5 @@
     </div>
   </div>
 
-  <%= render 'map', posts: @posts %>
+  <div id='map' style="height: 800px;"></div>
 </div>

@@ -10,7 +10,7 @@
 <div class="container">
   <div class="row">
     <div class="col-6"></div>
-    <h2 class="col-6 ml-5">投稿</h2>
+    <h2 class="col-6 ml-5 mt-2">投稿</h2>
   </div>
     <%= form_with model: @post do |f| %>
     <div class="row">
@@ -60,119 +60,118 @@
 
     <div class="input-field"></div>
   </div>
-<script>
-document.addEventListener('turbolinks:load', function() {
-  let map
-  let geocoder
-  const display = document.getElementById('display')
-});
-  function initMap(){
-    geocoder = new google.maps.Geocoder()
+<!--<script>-->
+<!--document.addEventListener('turbolinks:load', function() {-->
+<!--  let map-->
+<!--  let geocoder-->
+<!--  const display = document.getElementById('display')-->
+<!--});-->
+<!--  function initMap(){-->
+<!--    geocoder = new google.maps.Geocoder()-->
 
-    map = new google.maps.Map(document.getElementById('map'), {
-      center: { lat: 35.6803997, lng: 139.7690174 },
-      zoom: 10,
-    });
+<!--    map = new google.maps.Map(document.getElementById('map'), {-->
+<!--      center: { lat: 35.6803997, lng: 139.7690174 },-->
+<!--      zoom: 10,-->
+<!--    });-->
 
-    marker = new google.maps.Marker({
-      position:  {lat: 40.7828, lng:-73.9653},
-      map: map
-    });
+<!--    marker = new google.maps.Marker({-->
+<!--      position:  {lat: 40.7828, lng:-73.9653},-->
+<!--      map: map-->
+<!--    });-->
 
-  google.maps.event.addListener(map, 'click', mylistener);
+<!--  google.maps.event.addListener(map, 'click', mylistener);-->
 
-      //クリックしたときの処理
-    function mylistener(event){
-      map_lat = document.getElementById('post_lat')
-      map_lng = document.getElementById('post_lng')
-      //markerの位置を設定
-      //event.latLng.lat()でクリックしたところの緯度を取得
-      marker.setPosition(new google.maps.LatLng(event.latLng.lat(), event.latLng.lng()));
-      //marker設置
-      marker.setMap(map);
-      map_lat.value = event.latLng.lat();
-      map_lng.value = event.latLng.lng();
-    }
-  }
+      <!--//クリックしたときの処理-->
+<!--    function mylistener(event){-->
+<!--      map_lat = document.getElementById('post_lat')-->
+<!--      map_lng = document.getElementById('post_lng')-->
+      <!--//markerの位置を設定-->
+      <!--//event.latLng.lat()でクリックしたところの緯度を取得-->
+<!--      marker.setPosition(new google.maps.LatLng(event.latLng.lat(), event.latLng.lng()));-->
+      <!--//marker設置-->
+<!--      marker.setMap(map);-->
+<!--      map_lat.value = event.latLng.lat();-->
+<!--      map_lng.value = event.latLng.lng();-->
+<!--    }-->
+<!--  }-->
 
-    function codeAddress(){
-    let inputAddress = document.getElementById('address').value;
+<!--    function codeAddress(){-->
+<!--    let inputAddress = document.getElementById('address').value;-->
 
-    geocoder.geocode( { 'address': inputAddress}, function(results, status) {
-      if (status == 'OK') {
-      map.setCenter(results[0].geometry.location);
-      var marker = new google.maps.Marker({
-        map: map,
-        position: results[0].geometry.location
-      });
+<!--    geocoder.geocode( { 'address': inputAddress}, function(results, status) {-->
+<!--      if (status == 'OK') {-->
+<!--      map.setCenter(results[0].geometry.location);-->
+<!--      var marker = new google.maps.Marker({-->
+<!--        map: map,-->
+<!--        position: results[0].geometry.location-->
+<!--      });-->
 
-      display.textContent = "検索結果：" + results[ 0 ].geometry.location
-      } else {
-        alert('該当する結果がありませんでした：' + status);
-      }
-      });
-      }
-      // ここから追加
-//   window.initMap = () => {}
+<!--      display.textContent = "検索結果：" + results[ 0 ].geometry.location-->
+<!--      } else {-->
+<!--        alert('該当する結果がありませんでした：' + status);-->
+<!--      }-->
+<!--      });-->
+<!--      }-->
+<!--      // ここから追加-->
+<!--//   window.initMap = () => {}-->
 
-// window.onload = function() {
-//   const addresses = [...document.querySelectorAll("#mapAddress")].map((node) => node.textContent);
-//   const shopNames = [...document.querySelectorAll("#shop_name_js")].map((node) => node.textContent);
-//   let data = shopNames.map(function(name, index) {
-//     return {
-//       name: name,
-//       address: addresses[index]
-//     }
-//   })
+<!--// window.onload = function() {-->
+<!--//   const addresses = [...document.querySelectorAll("#mapAddress")].map((node) => node.textContent);-->
+<!--//   const shopNames = [...document.querySelectorAll("#shop_name_js")].map((node) => node.textContent);-->
+<!--//   let data = shopNames.map(function(name, index) {-->
+<!--//     return {-->
+<!--//       name: name,-->
+<!--//       address: addresses[index]-->
+<!--//     }-->
+<!--//   })-->
 
-//   const googleMapElement = document.getElementById('map');
-//   const infowindow = new google.maps.InfoWindow();
+<!--//   const googleMapElement = document.getElementById('map');-->
+<!--//   const infowindow = new google.maps.InfoWindow();-->
 
-//   if (addresses.length > 0) {
-//     window.initMap = mappingPinToGoogleMap(addresses, googleMapElement)
-//   }
+<!--//   if (addresses.length > 0) {-->
+<!--//     window.initMap = mappingPinToGoogleMap(addresses, googleMapElement)-->
+<!--//   }-->
 
 
-// function mappingPinToGoogleMap(addresses, googleMapElement) {
-//   const googleMap = new google.maps.Map(googleMapElement, {
-//     zoom: 16,
-//     mapTypeId: google.maps.MapTypeId.ROADMAP
-//   });
+<!--// function mappingPinToGoogleMap(addresses, googleMapElement) {-->
+<!--//   const googleMap = new google.maps.Map(googleMapElement, {-->
+<!--//     zoom: 16,-->
+<!--//     mapTypeId: google.maps.MapTypeId.ROADMAP-->
+<!--//   });-->
 
-//   const bounds = new google.maps.LatLngBounds();
+<!--//   const bounds = new google.maps.LatLngBounds();-->
 
-//   data.forEach((data) => {
+<!--//   data.forEach((data) => {-->
 
-//     const geocoder = new google.maps.Geocoder();
-//     geocoder.geocode({ 'address': data.address, 'region': 'jp' }, (result, status) => {
-//       if(status == google.maps.GeocoderStatus.OK) {
+<!--//     const geocoder = new google.maps.Geocoder();-->
+<!--//     geocoder.geocode({ 'address': data.address, 'region': 'jp' }, (result, status) => {-->
+<!--//       if(status == google.maps.GeocoderStatus.OK) {-->
 
-//         const lat = result[0].geometry.location.lat();
-//         const lng = result[0].geometry.location.lng();
-//         const latlng = {lat,lng};
+<!--//         const lat = result[0].geometry.location.lat();-->
+<!--//         const lng = result[0].geometry.location.lng();-->
+<!--//         const latlng = {lat,lng};-->
 
-//         const marker = new google.maps.Marker({
-//           position: new google.maps.LatLng(latlng),
-//           map: googleMap,
-//         });
+<!--//         const marker = new google.maps.Marker({-->
+<!--//           position: new google.maps.LatLng(latlng),-->
+<!--//           map: googleMap,-->
+<!--//         });-->
 
-//         if (addresses.length > 1) {
-//           bounds.extend(marker.position);
-//           googleMap.fitBounds(bounds,20);
-//           const infowindow = new google.maps.InfoWindow({
-//             content: data.name,
-//           });
-//           marker.addListener("click", () => {
-//             infowindow.open(googleMap, marker);
-//           });
-//         } else {
-//           googleMap.setCenter(latlng);
-//         }
-//       }
-//     })
-//   })
-// }
-// }
+<!--//         if (addresses.length > 1) {-->
+<!--//           bounds.extend(marker.position);-->
+<!--//           googleMap.fitBounds(bounds,20);-->
+<!--//           const infowindow = new google.maps.InfoWindow({-->
+<!--//             content: data.name,-->
+<!--//           });-->
+<!--//           marker.addListener("click", () => {-->
+<!--//             infowindow.open(googleMap, marker);-->
+<!--//           });-->
+<!--//         } else {-->
+<!--//           googleMap.setCenter(latlng);-->
+<!--//         }-->
+<!--//       }-->
+<!--//     })-->
+<!--//   })-->
+<!--// }-->
+<!--// }-->
 
-</script>
-<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV["GOOGLE_MAPS_API_KEY"] %>&callback=initMap" async defer></script>
+<!--</script>-->
