@@ -71,8 +71,8 @@
 
   <div>
     <%= form_with model: [@post, @post_comment] do |f| %>
-      <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
-      <%= f.submit "送信する" %>
+      <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに", class: 'col-3' %>
+      <%= f.submit "送信する", class: 'offset-1 col-1 mb-2' %>
     <% end %>
   </div>
 </div>
