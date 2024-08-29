@@ -1,25 +1,10 @@
 <div class="container">
-  <!--地図内に表示されるように変更-->
-  <div class="post-list">
-    <% @posts.each do |post| %>
-      <p>本文:<%= post.body %></p>
-      <p>住所:<%= post.address %></p>
-      <p>緯度:<%= post.lat %>経度:<%= post.lng %></p>
-      <p><%= link_to "#{post.post_comments.count}コメント",post_path(post.id) %></p>
-        <div>
-          <% post.images.each do |image| %>
-            <%= link_to post_path(post.id) do %>
-              <%= image_tag(image, width:100) %>
-            <% end %>
-          <% end %>
-        </div>
-    <% end %>
-  </div>
-
   <div class="row">
     <div class="col-12">
-      <input id="address" type="textbox" value="GeekSalon">
-      <input type="button" value="検索" onclick="codeAddress()">
+      <p class="mt-2">住所検索:
+        <input id="address" type="textbox">
+        <input type="button" value="検索" onclick="codeAddress()">
+      </p>
     </div>
     <!-- 下の1行を追加 -->
 
@@ -32,5 +17,76 @@
     </div>
   </div>
 
-  <%= render 'map', posts: @posts %>
+  <div id='map' style="height: 800px;"></div>
 </div>
+<script>
+ function initMap() {
+ 　　　// 地図の表示初期値(東京)
+   let latlng = new google.maps.LatLng(35.6803997, 139.7690174);
+   let styles = [
+     {
+       featureType: "all",
+	stylers: [
+         { "saturation": -70 },
+         { "lightness": 0 },
+       ]
+     }
+   ];
+
+  //マーカーを格納する配列
+  const marker = [];
+
+  //吹き出し（情報ウィンドウ）を格納する配列
+  const infoWindow = [];
+
+    const markerEvent = (i) => {
+      marker[i].addListener('click', () => {
+        for (const j in marker) {
+          //マーカーをクリックしたときに他の情報ウィンドウを閉じる
+          infoWindow[j].close(map, marker[j]);
+        }
+
+        //クリックされたマーカーの吹き出し（情報ウィンドウ）を表示
+        infoWindow[i].open(map, marker[i]);
+      });
+    }
+
+ let map = new google.maps.Map(document.getElementById('map'), {
+   zoom: 10,
+   center: latlng
+ });
+
+ <% @posts.each do |post| %>
+   ( function(){
+     let markerLatLng = { lat: <%= post.lat %>, lng: <%= post.lng %> };
+     let marker = new google.maps.Marker({
+       position: markerLatLng,
+       map: map
+     });
+
+     let infowindow = new google.maps.InfoWindow({
+    // 情報ウィンドウの定義
+       position: markerLatLng,
+       content: `<div class="custom-info">
+        <div class="custom-info-item name">
+        <%= post.body %>
+        </div>
+        <div class="custom-info-item">
+          <% post.images.each do |image| %>
+            <%= link_to post_path(post.id) do %>
+              <%= image_tag(image,width:75) %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>`,
+       pixelOffset: new google.maps.Size(0, -50)
+      })
+     marker.addListener('click', () => {
+       infowindow.open(map);
+     });
+   })();
+ <% end %>
+ }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV["GOOGLE_MAPS_API_KEY"] %>&callback=initMap"></script>

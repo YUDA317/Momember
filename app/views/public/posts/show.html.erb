@@ -22,7 +22,7 @@
 
 
 
-  <%= render 'map', posts: @posts %>
+  <div id='map' style="height: 800px;"></div>
 
   <!--仮投稿一覧-->
   <div>
@@ -34,11 +34,7 @@
     タグ:<%= @post.tag_body %>
   </p>
   <p>
-    本文:<%= @post.body %>
-  </p>
-  <!--住所が表示されないのちに修正-->
-  <p>
-    住所:<%= @post.address %>
+    本文:<%= simple_format(@post.body) %>
   </p>
   <p>
     緯度:<%= @post.lat %>経度:<%= @post.lng %>
@@ -76,3 +72,63 @@
     <% end %>
   </div>
 </div>
+
+<script>
+document.addEventListener('turbolinks:load', function() {
+  let geocoder
+  // 下の1行を追加
+  const display = document.getElementById('display')
+});
+
+  function initMap(){
+    geocoder = new google.maps.Geocoder()
+
+    let map = new google.maps.Map(document.getElementById('map'), {
+      center: { lat: <%= @post.lat %>, lng: <%= @post.lng %> },
+      zoom: 10,
+      streetViewControl: false
+    });
+
+    let marker = new google.maps.Marker({
+      position:  { lat: <%= @post.lat %>, lng: <%= @post.lng %> },
+      map: map
+    });
+
+  <% @post.images.each do |image| %>
+  ( function(){
+    position: marker
+    let infowindow = new google.maps.InfoWindow({
+    // 情報ウィンドウの定義
+       position: marker,
+       content: `<div class="custom-info">
+        <div class="custom-info-item">
+          <%= image_tag(image, width:100) %>
+        </div>
+      </div>`,
+     });
+     marker.addListener('click', () => {
+       infowindow.open(map);
+     });
+    })();
+  <% end %>
+  }
+
+  function codeAddress(){
+    let inputAddress = document.getElementById('address').value;
+
+    geocoder.geocode( { 'address': inputAddress}, function(results, status) {
+      if (status == 'OK') {
+        map.setCenter(results[0].geometry.location);
+        var marker = new google.maps.Marker({
+            map: map,
+            position: results[0].geometry.location
+        });
+        // 下の1行を追加
+        display.textContent = "検索結果：" + results[ 0 ].geometry.location
+      } else {
+        alert('該当する結果がありませんでした：' + status);
+      }
+    });
+  }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV["GOOGLE_MAPS_API_KEY"] %>&callback=initMap"></script>

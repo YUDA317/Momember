@@ -54,23 +54,20 @@ end
 Post.find_or_create_by!(body: "kusa") do |post_data|
   post_data.lat = "35.7054551"
   post_data.lng = "139.6917337"
-  post_data.address = "日本"
   post_data.images.attach(io: File.open('db/fixtures/nyaoha.jpg'), filename: 'nyaoha.jpg')
   post_data.user = herakurosu
 end
 
 Post.find_or_create_by!(body: "mizu") do |post_data|
-  post_data.lat = "24.2355536"
-  post_data.lng = "366.2255672"
-  post_data.address = "日本?"
+  post_data.lat = "35.70152487037308"
+  post_data.lng = "139.81708652504136"
   post_data.images.attach(io: File.open('db/fixtures/yadon.png'), filename: 'yadon.png')
   post_data.user = hisuizoroa
 end
 
 Post.find_or_create_by!(body: "ノーマル") do |post_data|
-  post_data.lat = "65.2208472"
-  post_data.lng = "458.3282053"
-  post_data.address = "多分日本じゃない"
+  post_data.lat = "35.80411786449981"
+  post_data.lng = "139.98600131996324"
   post_data.images.attach([
     { io: File.open('db/fixtures/yokubarisu.png'), filename: 'yokubarisu.png'},
     { io: File.open('db/fixtures/イーブイ.png'), filename: 'イーブイ.png'}

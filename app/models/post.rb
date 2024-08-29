@@ -7,7 +7,7 @@ class Post < ApplicationRecord
   #after_validation :geocode
   belongs_to :user
 
-  validates :body, presence: true
+  validates :body, presence: true, length: { maximum: 140 }
   validates :images, presence: true
   validates :lat, presence: true
   validates :lng, presence: true

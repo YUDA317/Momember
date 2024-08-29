@@ -80,7 +80,7 @@ class Public::PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:body, :tag_body, :address, :lat, :lng, images: []).merge(user_id: current_user.id)
+    params.require(:post).permit(:body, :tag_body, :lat, :lng, images: []).merge(user_id: current_user.id)
   end
 
   def is_matching_login_user

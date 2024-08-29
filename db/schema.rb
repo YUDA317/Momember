@@ -90,7 +90,6 @@ ActiveRecord::Schema.define(version: 2024_08_11_043843) do
     t.text "tag_body"
     t.float "lat", null: false
     t.float "lng", null: false
-    t.text "address", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

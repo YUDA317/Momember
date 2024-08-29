@@ -10,7 +10,7 @@
 <div class="container">
   <div class="row">
     <div class="col-6"></div>
-    <h2 class="col-6 ml-5">投稿</h2>
+    <h2 class="col-6 ml-5 mt-2">投稿</h2>
   </div>
     <%= form_with model: @post do |f| %>
     <div class="row">
@@ -29,7 +29,6 @@
           <%= f.text_area :tag_body %>
           <%= f.hidden_field :lat %>
           <%= f.hidden_field :lng %>
-          <%= f.hidden_field :address %>
           <div>
             <h2>投稿したい場所を選択</h2>
 
@@ -72,6 +71,7 @@ document.addEventListener('turbolinks:load', function() {
     map = new google.maps.Map(document.getElementById('map'), {
       center: { lat: 35.6803997, lng: 139.7690174 },
       zoom: 10,
+      streetViewControl: false
     });
 
     marker = new google.maps.Marker({
@@ -102,9 +102,10 @@ document.addEventListener('turbolinks:load', function() {
       if (status == 'OK') {
       map.setCenter(results[0].geometry.location);
       var marker = new google.maps.Marker({
-        map: map,
         position: results[0].geometry.location
       });
+
+      var afterPinned = true;
 
       display.textContent = "検索結果：" + results[ 0 ].geometry.location
       } else {
