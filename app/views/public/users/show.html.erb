@@ -1,31 +1,20 @@
 <div class="container">
   <div class="row align-items-center my-2">
     <h3 class="col-2 my-2">投稿一覧</h3>
-      <div class="col-2 offset-6">
+      <div class="col-1 offset-4">
         <%= image_tag @user.get_profile_image, size: "75x75" %>
       </div>
       <h3 class="col-2"><%= @user.name %></h3>
-    </div>
-    <div id='map' style="height: 800px;"></div>
-    <!--仮投稿一覧のため変更-->
-    <% @posts.each do |post| %>
-      <div>
-        <% post.images.each do |image| %>
-          <%= link_to post_path(post.id) do %>
-            <%= image_tag(image, width:100) %>
-          <% end %>
-        <% end %>
+      <div class="mx-2">
+        <div>follows:<%= link_to @user.followings.count, user_followings_path(@user) %><br>
+        followers:<%= link_to @user.followers.count, user_followers_path(@user) %></div>
       </div>
-      <p>
-        本文:<%= post.body %>
-      </p>
-      <p>
-        緯度:<%= post.lat %>経度:<%= post.lng %>
-      </p>
-      <p>
-        <%= link_to "#{post.post_comments.count} コメント", post_path(post.id) %>
-      </p>
-    <% end %>
+      <div class="ml-2">
+        <%= render "public/relationships/btn", user: @user, options: { class: ""} %>
+      </div>
+  </div>
+
+    <div id='map' style="height: 800px;"></div>
 </div>
 <script>
  function initMap() {

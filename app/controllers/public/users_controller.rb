@@ -1,6 +1,11 @@
 class Public::UsersController < ApplicationController
   before_action :is_matching_login_user, only: [:edit, :update]
   before_action :authenticate_user!
+  before_action :move_to_index, except: [:index, :show]
+
+  def index
+    @users = User.page(params[:page])
+  end
 
   def show
     @user = User.find(params[:id])
@@ -41,11 +46,17 @@ class Public::UsersController < ApplicationController
       user = User.find_by(id: params[:id])
       unless user && user.id == current_user.id
         flash[:error] = 'ユーザーが存在しないか、アクセス権限がありません。'
-        redirect_to posts_path
+        redirect_to users_path
       end
     else
       flash[:error] = 'ログインが必要です。'
-      redirect_to posts_path
+      redirect_to users_path
+    end
+  end
+
+  def move_to_index
+    unless user_signed_in?
+      redirect_to action: :index
     end
   end
 end

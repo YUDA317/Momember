@@ -17,7 +17,11 @@ Rails.application.routes.draw do
     root to: "homes#top"
     get 'homes/about',to: 'homes#about', as: :about
     get '/user/:user_id',to: 'posts#index'
-    resources :users
+    resources :users, only: [:index, :show, :edit, :update] do
+      resource :relationships, only: [:create, :destroy]
+        get "followings" => "relationships#followings", to: 'users#index', as: "followings"
+        get "followers" => "relationships#followers", to: 'users#index', as: "followers"
+    end
     resources :posts do
       resources :post_comments, only: [:create, :destroy]
       collection do

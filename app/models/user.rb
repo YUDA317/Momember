@@ -9,7 +9,7 @@ class User < ApplicationRecord
   has_one_attached :profile_image
   has_many:posts
 
-  validates :name, presence: true
+  validates :name, presence: true, length: { maximum: 12 }
 
 # フォローの記述
   # フォローしている関連付け
@@ -28,20 +28,6 @@ class User < ApplicationRecord
       User.all
     end
   end
-
-  # def self.looks(search, word)
-  #   if search == "perfect_match"
-  #     @user = User.where("name LIKE?", "#{word}")
-  #   elsif search == "forward_match"
-  #     @user = User.where("name LIKE?","#{word}%")
-  #   elsif search == "backward_match"
-  #     @user = User.where("name LIKE?","%#{word}")
-  #   elsif search == "partial_match"
-  #     @user = User.where("name LIKE?","%#{word}%")
-  #   else
-  #     @user = User.all
-  #   end
-  # end
 
   # 指定したユーザーをフォローする
   def follow(user)

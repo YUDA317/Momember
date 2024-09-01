@@ -1,5 +1,6 @@
 class Public::RelationshipsController < ApplicationController
   before_action :authenticate_user!
+
   def create
     user = User.find(params[:user_id])
     current_user.follow(user)
@@ -14,36 +15,15 @@ class Public::RelationshipsController < ApplicationController
 
   def followings
     user = User.find(params[:user_id])
-    @users = user.followings
+    @users = user.followings.page(params[:page])
   end
 
   def followers
     user = User.find(params[:user_id])
-    @users = user.followers
+    @users = user.followers.page(params[:page])
+  end
+
+  def index
+    @users = User.page(params[:page])
   end
 end
-
-# <div class="container">
-#   <div class="row">
-#     <div class="mt-2">
-
-#       <div class="col-2">
-#         <h2>Follow Users</h2>
-#           <% if @users.exists? %>
-#             <%= render "/users/index", users: @users %>
-#           <% else %>
-#             <p>ユーザーはいません</p>
-#           <% end %>
-#       </div>
-
-#       <div class="col-2">
-#         <h2>Follower Users</h2>
-#           <% if @users.exists? %>
-#             <%= render "/users/index", users: @users %>
-#           <% else %>
-#             <p>ユーザーはいません</p>
-#           <% end %>
-#       </div>
-#     </div>
-#   </div>
-# </div>

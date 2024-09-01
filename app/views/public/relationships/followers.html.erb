@@ -1,0 +1,11 @@
+<div class="container">
+  <h2 class="mt-2">フォロワーユーザー</h2>
+  <% if @users.exists? %>
+    <%= render "public/users/index", users: @users %>
+  <% else %>
+    <p>ユーザーはいません</p>
+  <% end %>
+  <% if @users.present? %>
+    <%= paginate @users %>
+  <% end %>
+</div>
