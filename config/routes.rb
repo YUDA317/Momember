@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   end
 
   scope module: :public do
+    devise_for :users
     root to: "homes#top"
     get 'homes/about',to: 'homes#about', as: :about
     get '/user/:user_id',to: 'posts#index'
