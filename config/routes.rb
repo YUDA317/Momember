@@ -21,6 +21,7 @@ Rails.application.routes.draw do
         get "followers" => "relationships#followers", to: 'users#index', as: "followers"
     end
     resources :posts do
+      resource :favorite, only: [:create, :destroy]
       resources :post_comments, only: [:create, :destroy]
       collection do
         get 'search'
