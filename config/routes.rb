@@ -11,9 +11,6 @@ Rails.application.routes.draw do
   end
 
   scope module: :public do
-    devise_for :users
-    get "followings" => "relationships#followings", as: "followings"
-    get "followers" => "rerationships#followers", as: "followers"
     root to: "homes#top"
     get 'homes/about',to: 'homes#about', as: :about
     get '/user/:user_id',to: 'posts#index'
@@ -23,6 +20,7 @@ Rails.application.routes.draw do
         get "followers" => "relationships#followers", to: 'users#index', as: "followers"
     end
     resources :posts do
+      resource :favorite, only: [:create, :destroy]
       resources :post_comments, only: [:create, :destroy]
       collection do
         get 'search'

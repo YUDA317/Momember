@@ -3,6 +3,7 @@ class Post < ApplicationRecord
   has_many :tags, through: :post_tags
   has_many_attached :images
   has_many :post_comments, dependent: :destroy
+  has_many :favorites, dependent: :destroy
   #geocoded_by :address
   #after_validation :geocode
   belongs_to :user
@@ -32,6 +33,9 @@ class Post < ApplicationRecord
   #     post.tags << tag
   #   end
   # end
+  def favorited_by?(user)
+    favorites.exists?(user_id: user.id)
+  end
 
   def self.search(search)
     if search != ""
