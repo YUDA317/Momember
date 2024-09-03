@@ -16,22 +16,24 @@
         </li>
         <% end %>
         <li class="list-group-item py-4">
+          <%= link_to posts_path, class: "text-body font-weight-bold text-center" do %>
+            <h2>Map</h2>
+          <% end %>
+        </li>
+        <li class="list-group-item py-4">
+          <%= link_to users_path, class: "text-body font-weight-bold text-center" do %>
+            <h2>Users</h2>
+          <% end %>
+        </li>
+        <li class="list-group-item py-4">
           <%= link_to about_path, class: "text-body font-weight-bold text-center" do %>
             <h2>About</h2>
           <% end %>
         </li>
         <% if user_signed_in? %>
-        <li class="list-group-item py-4">
-          <!--自分がいいねした投稿の一覧のリンク仮リンク-->
-          <%= link_to about_path, class: "text-body font-weight-bold text-center" do %>
-            <h2>いいね一覧</h2>
-          <% end %>
-        </li>
-        <% end %>
-        <% if user_signed_in? %>
           <li class="list-group-item py-4">
             <%= link_to destroy_user_session_path, class: "text-danger font-weight-bold text-center", method: :delete do %>
-              <h2>ログアウト</h2>
+              <h2>Log out</h2>
             <% end %>
           </li>
         <% else %>
