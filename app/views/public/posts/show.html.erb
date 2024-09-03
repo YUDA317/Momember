@@ -28,12 +28,12 @@
       <%= image_tag(image, width:100) %>
     <% end %>
   </div>
-  <p>
+  <div class="post-text">
     タグ:<%= @post.tag_body %>
-  </p>
-  <p>
+  </div>
+  <div class="post-text">
     本文:<%= simple_format(@post.body) %>
-  </p>
+  </div>
   <p>
     緯度:<%= @post.lat %>経度:<%= @post.lng %>
   </p>
@@ -105,23 +105,28 @@ document.addEventListener('turbolinks:load', function() {
       map: map
     });
 
-  <% @post.images.each do |image| %>
-  ( function(){
     position: marker
+
     let infowindow = new google.maps.InfoWindow({
     // 情報ウィンドウの定義
-       position: marker,
+       position: marker.position,
+/*       content: `<div class="custom-info">
+        <div class="custom-info-item">
+          <%#= image_tag(image, width:100) %>
+        </div>
+      </div>`,*/
+
        content: `<div class="custom-info">
         <div class="custom-info-item">
-          <%= image_tag(image, width:100) %>
+          <% @post.images.each do |image| %>
+              <%= image_tag(image, width:100) %>
+          <% end %>
         </div>
       </div>`,
      });
      marker.addListener('click', () => {
        infowindow.open(map);
      });
-    })();
-  <% end %>
   }
 
   function codeAddress(){
