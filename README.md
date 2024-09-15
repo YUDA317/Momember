@@ -1,4 +1,4 @@
-# Momember(momentxremember)
+# Momember(「moment」x「remember」)
 <!--​READMEを作成する際は、項目内の【補足説明】は削除して完成させてください。-->
 ## サイト概要
 ### サイトテーマ
@@ -58,3 +58,5 @@
 ## 使用素材
 ・フリーアイコン素材として以下を使用
  ◦Font Awesome (https://fontawesome.com/kits)
+・フリー画像素材として以下を使用
+ ◦AC-illust (https://www.ac-illust.com)
