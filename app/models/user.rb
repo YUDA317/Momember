@@ -49,7 +49,7 @@ class User < ApplicationRecord
     if profile_image.attached?
       profile_image
     else
-      return '/assets/no_image2.png'
+      asset_path('no_image2.png')
     end
   end
 end
