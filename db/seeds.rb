@@ -30,42 +30,42 @@ Admin.create!(
   password: "kafka20"
 )
 
-herakurosu = User.find_or_create_by!(email: "herakurosu@example.com") do |user|
-  user.name = "herakurosu"
-  user.account = "herakurosu"
+herakurosu = User.find_or_create_by!(email: "tukimidango@example.com") do |user|
+  user.name = "tukimidango"
+  user.account = "tukimidango"
   user.password = "password"
   user.profile_image.attach(io: File.open('db/fixtures/herakurosu.png'), filename: 'herakurosu.png')
 end
 
-hisuizoroa = User.find_or_create_by!(email: "hisuizoroa@example.com") do |user|
-  user.name = "hisuizoroa"
-  user.account = "hisuizoroa"
+hisuizoroa = User.find_or_create_by!(email: "usurabbit@example.com") do |user|
+  user.name = "usurabbit"
+  user.account = "usurabbit"
   user.password = "password"
   user.profile_image.attach(io: File.open('db/fixtures/hisuizoroa.png'), filename: 'hisuizoroa.png')
 end
 
-husigidane = User.find_or_create_by!(email: "husigidane@example.com") do |user|
-  user.name = "husigidane"
-  user.account = "husigidane"
+husigidane = User.find_or_create_by!(email: "rabbit@example.com") do |user|
+  user.name = "rabbit"
+  user.account = "rabbit"
   user.password = "password"
   user.profile_image.attach(io: File.open('db/fixtures/husigidane.png'), filename: 'husigidane.png')
 end
 
-Post.find_or_create_by!(body: "kusa") do |post_data|
+Post.find_or_create_by!(body: "tukimi_rabbit") do |post_data|
   post_data.lat = "35.7054551"
   post_data.lng = "139.6917337"
   post_data.images.attach(io: File.open('db/fixtures/nyaoha.jpg'), filename: 'nyaoha.jpg')
   post_data.user = herakurosu
 end
 
-Post.find_or_create_by!(body: "mizu") do |post_data|
+Post.find_or_create_by!(body: "flower_rabbit") do |post_data|
   post_data.lat = "35.70152487037308"
   post_data.lng = "139.81708652504136"
   post_data.images.attach(io: File.open('db/fixtures/yadon.png'), filename: 'yadon.png')
   post_data.user = hisuizoroa
 end
 
-Post.find_or_create_by!(body: "ノーマル") do |post_data|
+Post.find_or_create_by!(body: "顔つき団子") do |post_data|
   post_data.lat = "35.80411786449981"
   post_data.lng = "139.98600131996324"
   post_data.images.attach([
